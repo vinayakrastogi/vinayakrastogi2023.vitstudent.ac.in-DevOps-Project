@@ -44,7 +44,7 @@ pipeline {
                     cp /root/.kube/config /tmp/kubeconfig
                     sed -i 's/127.0.0.1/host.docker.internal/g' /tmp/kubeconfig
                     export KUBECONFIG=/tmp/kubeconfig
-                    kubectl apply -f k8s/
+                    kubectl --insecure-skip-tls-verify=true apply -f k8s/
                     """
                 }
             }
