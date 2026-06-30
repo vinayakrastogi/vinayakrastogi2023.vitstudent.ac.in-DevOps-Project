@@ -39,8 +39,13 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying to Kubernetes...'
-                    // Requires kubectl configured in Jenkins
-                    sh "kubectl apply -f k8s/"
+                    // Modify kubeconfig to work inside the docker container
+                    sh """
+                    cp /root/.kube/config /tmp/kubeconfig
+                    sed -i 's/127.0.0.1/host.docker.internal/g' /tmp/kubeconfig
+                    export KUBECONFIG=/tmp/kubeconfig
+                    kubectl apply -f k8s/
+                    """
                 }
             }
         }
