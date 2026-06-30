@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   jenkins:
@@ -36,6 +35,7 @@ services:
 
   nagios:
     image: jasonrivers/nagios:latest
+    platform: linux/amd64
     container_name: nagios
     ports:
       - "8082:80"
